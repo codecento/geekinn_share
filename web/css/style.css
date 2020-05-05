@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+
+#main-nav{
+    background-color: #1A1A1B;
+    border-bottom: .5px solid rgb(72, 80, 80);
+}
+
+body{
+    background-color: black;
+}
+
+main{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.elemento{
+    background-color: #1A1A1B; 
+    border: .5px solid rgb(72, 80, 80);
+    border-radius: .25rem;
+}
+
+input, textarea{
+    background-color: #1A1A1B !important;
+    border: .5px solid rgb(72, 80, 80) !important;
+}
+
+aside#contenido-lateral>*{
+    margin-bottom: 16px;
+}

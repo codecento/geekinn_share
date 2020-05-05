@@ -1,0 +1,23 @@
+{% extends 'frontend.html.twig' %}
+
+{% block contenido %}
+	<div class="form-group p-3 elemento text-light">
+		<label for="tittle">Elige videojuego:
+		</label>
+		<input type="text" class="form-control" placeholder="Elige videojuego..."></input>
+	<label class="mt-2" for="comment">Comparte algo:</label>
+	<textarea class="form-control" rows="4" placeholder="¿Algunos mods? ¿Tal vez una guía de trofeos?"></textarea>
+	<button type="submit" class="btn btn-light mt-3 ml-auto">Publicar</button>
+</div>
+{% for post in posts %}
+	<div class="card post text-light elemento">
+		<div class="card-body">
+			<h6 class="card-title">{{ post.usuario.nombre }}</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Hablando de: {{ post.videojuego.nombre }} <span class="ml-auto">{{post.fechaCreacion|date}}</span></h6>
+			<p class="card-text">{{ post.texto }}</p>
+			<a href="#" class="card-link btn btn-light">Reportar</a>
+			<a href="#" class="card-link btn btn-light">Comentar</a>
+		</div>
+	</div>
+{% endfor %}
+{% endblock %}
