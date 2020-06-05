@@ -2,5 +2,4 @@ var/*
 vendor/*
 web/*
 bin/*
-app/config/*
 app/AppKernel.php

@@ -1,16 +1,17 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Usuario
  *
  * @ORM\Table(name="usuario")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Entity\UsuarioRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @var int
@@ -25,6 +26,7 @@ class Usuario
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=25, unique=true)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -32,6 +34,7 @@ class Usuario
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\Length(min = 6)
      */
     private $password;
 
@@ -39,6 +42,7 @@ class Usuario
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -46,6 +50,7 @@ class Usuario
      * @var string
      *
      * @ORM\Column(name="ruta_imagen", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $rutaImagen;
 
@@ -155,5 +160,23 @@ class Usuario
     {
         return $this->rutaImagen;
     }
+
+    function getRoles() { 
+        return array('ROLE_USUARIO');
+    }
+
+    function getUsername() { 
+        return $this->getEmail();
+    }
+
+    function eraseCredentials() {
+        $this->password = null;
+    }
+    
+    function getSalt() { // las contraseñas se codifican con 'bcrypt', por lo que no // es necesario definir el valor del 'salt' ç
+        return null; 
+    }
+
+
 }
 

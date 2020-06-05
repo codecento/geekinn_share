@@ -1,27 +1,68 @@
 {% extends 'frontend.html.twig' %}
 
 {% block contenido %}
-	<div class="form-group p-3 elemento text-light">
-		<label for="tittle">Elige videojuego:
-		</label>
-		<input type="text" class="form-control text-light" placeholder="Elige videojuego..."></input>
-		<label class="mt-2" for="comment">Comparte algo:</label>
-		<textarea class="form-control text-light" rows="4" placeholder="¿Algunos mods? ¿Tal vez una guía de trofeos?"></textarea>
-		<button type="submit" class="btn btn-light mt-3 ml-auto">Publicar</button>
-	</div>
-	{% for post in posts %}
-		<div class="card post text-light elemento">
-			<div class="card-body">
-				<h6 class="card-title">{{ post.usuario.nombre }}</h5>
-				<h6 class="card-subtitle mb-2 text-muted">Hablando de:
-					{{ post.videojuego.nombre }}
-					<span class="ml-auto">|
-						{{post.fechaCreacion|date("d-m-Y")}}</span>
-				</h6>
-				<p class="card-text">{{ post.texto }}</p>
-				<a href="#" class="card-link btn btn-light">Reportar</a>
-				<a href="#" class="card-link btn btn-light">Comentar</a>
+	{% for flash_message in app.session.flashbag.get('notice') %}
+		<div class="toast ml-auto" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto">Notificación</strong>
+				<small>Hace un momento</small>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="toast-body flash-notice">
+				{{ flash_message }}
 			</div>
 		</div>
 	{% endfor %}
+	{% if app.user %}
+		{# Si el usuario no es anónimo, mostrar el formulario para escribir posts #}
+		{# Formulario para escribir posts #}
+			<div class="form-group p-3 elemento text-light"> <label for="tittle">Elige videojuego:
+			</label>
+			<div class="dropdown">
+				<button class="btn btn-light dropdown-toggle" type="button" id="botonDesplegableVideojuegos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Elige videojuego
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="myDropdown">
+					<input type="text" placeholder="Busca..." id="myInput" onkeyup="filterFunction()" class="bg-light mr-2 ml-2 rounded">
+					{% for videojuego in videojuegos %}
+						<a class="dropdown-item" href="#" onclick="elegirVideojuego(this)" id="{{ videojuego.id }}">{{ videojuego.nombre }}</a>
+					{% endfor %}
+				</div>
+			</div>
+			<label class="mt-2" for="comment">Comparte algo:</label>
+			<textarea id="textoPost" class="form-control text-light" rows="4" placeholder="¿Algunos mods? ¿Tal vez una guía de trofeos?"></textarea>
+			<button class="btn btn-light mt-3 ml-auto" id="boton_publicar">Publicar</button>
+		</div>
+	{% else %}
+		<div class="mb-4 p-3 elemento text-light">
+			<p>¡Inicia sesión para poder escribir posts y formar parte de esta comunidad!</p>
+		</div>
+	{% endif %}
+	{# Bucle para cargar posts en la web #}
+	{% for post in posts %}
+		<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
+			<div class="card post text-light elemento mb-3">
+				<div class="card-body">
+					<a href="{{path('perfil', {usuario: post.usuario.id})}}">
+						<h6 class="card-title text-light">{{ post.usuario.nombre }}</h5>
+					</a>
+					<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+						{{ post.videojuego.nombre }}
+						<span class="ml-auto">|
+							{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
+					</h6>
+					<p class="card-text mb-2">{{ post.texto }}</p>
+					{% if app.user is same as(post.usuario) %}
+						<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
+					{% endif %}
+					<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
+				</div>
+			</div>
+		</a>
+	{% endfor %}
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset("js/index.js") }}"></script>
 {% endblock %}

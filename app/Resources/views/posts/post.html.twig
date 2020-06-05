@@ -1,0 +1,66 @@
+{% extends "frontend.html.twig" %}
+
+{% block contenido %}
+	{% for flash_message in app.session.flashbag.get('notice') %}
+		<div class="toast ml-auto" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto">Notificación</strong>
+				<small>Hace un momento</small>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="toast-body flash-notice">
+				{{ flash_message }}
+			</div>
+		</div>
+	{% endfor %}
+	<div
+		id="post" class="p-3 elemento text-light">
+		<!-- Autor -->
+		<p class="lead">
+			<a href="#" class="text-light">{{ post.usuario.nombre }}</a>
+			hablando de
+			<a href="#" class="text-light">{{ post.videojuego.nombre }}</a>
+		</p>
+
+		<!-- Fecha -->
+		<p class="small">Compartido:
+			{{ post.fecha_creacion|date("d-m-Y h:m") }}</p>
+
+		<!-- Texto del post -->
+		<p>{{ post.texto }}
+		</p>
+
+
+		<!-- Comments Form -->
+		<div class="elemento card my-5">
+			<p class="card-header ">Deja una aportación o comentario:</p>
+			<div class="card-body">
+				<textarea class="form-control" rows="3" id="texto-comentario"></textarea>
+				<input type="hidden" value="{{post.id}}" id="post-id"/>
+				<button class="btn btn-light mt-3 ml-auto" id="boton_comentar">Comentar</button>
+			</div>
+		</div>
+		<h4>Comentarios</h4>
+		{% for comentario in comentarios %}
+		<div class="card post text-light elemento">
+			<div class="card-body">
+				<a href="{{path('perfil', {usuario: comentario.usuario.id})}}">
+					<h6 class="card-title text-light">{{ post.usuario.nombre }} dice:</h6>
+				</a>
+				<p class="card-text mb-2">{{ comentario.texto }}</p>
+				{% if app.user is same as(comentario.usuario) %}
+				<form method="POST">
+					<input type="hidden" value="{{comentario.id}}"/>
+					<a href="{{ path('borrar_comentario', { comentario_id: comentario.id, post_id: post.id }) }}" class="boton-borrar-post card-link btn btn-light">Borrar comentario</a>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset("js/post.js") }}"></script>
+{% endblock %}

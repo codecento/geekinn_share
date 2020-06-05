@@ -31,7 +31,7 @@ class Videojuego
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255)
+     * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;
 
@@ -65,6 +65,20 @@ class Videojuego
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set texto
+     *
+     * @param int $id
+     *
+     * @return Videojuego
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -134,7 +148,7 @@ class Videojuego
      *
      * @return string
      */
-    public function getRutaImagen()
+    public function getruta_imagen()
     {
         return $this->rutaImagen;
     }
@@ -158,7 +172,7 @@ class Videojuego
      *
      * @return \DateTime
      */
-    public function getFechaLanzamiento()
+    public function getFecha_Lanzamiento()
     {
         return $this->fechaLanzamiento;
     }

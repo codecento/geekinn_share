@@ -1,2 +1,19 @@
 {% extends 'frontend.html.twig' %}
 
+{% block contenido %}
+	
+	<div class="d-flex justify-content-around">
+			{# Bucle para crear la lista de videojuegos #}
+			{% for videojuego in videojuegos %}
+				<a href="{{ path('videojuego', { videojuego: videojuego.id }) }}">
+					<div class="card videojuego-panel elemento text-light">
+						<img src={{ asset(videojuego.ruta_imagen) }} class="card-img-top" alt="...">
+						<div class="card-body">
+							<h6 class="card-title">{{ videojuego.nombre }}</h6>
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+	</div>
+	</a>
+{% endblock %}

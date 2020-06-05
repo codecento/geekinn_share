@@ -1,0 +1,47 @@
+{% extends 'frontend.html.twig' %}
+
+{% block contenido %}
+	<h4 class="text-light">Página de perfil</h4>
+	<div class="elemento container mb-4" id="perfil_datos">
+		<div class="row">
+			<div class="col-3 pt-4 pb-4">
+				<img class="rounded" width="100px" src="{{asset(usuario.rutaImagen)}}">
+			</div>
+			<div class="col-9 text-light pt-4 pb-4">
+				<h5>Usuario</h5>
+				<p>{{usuario.nombre}}</p>
+				{% if app.user.nombre is same as(usuario.nombre) %}
+					<h5>Cambiar contraseña:</h5>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% if app.user.nombre is same as(usuario.nombre) %}
+	<h4 class="text-light">Mis posts</h4>
+	{% else %}
+	<h4 class="text-light">Posts de {{usuario.nombre}}</h4>
+	{% endif %}
+	{# Bucle para cargar posts del usuario en la web #}
+	{% for post in posts %}
+		<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
+			<div class="card post text-light elemento mb-3">
+				<div class="card-body">
+					<a href="{{path('perfil', {usuario: post.usuario.id})}}">
+						<h6 class="card-title">{{ post.usuario.nombre }}</h5>
+					</a>
+					<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+						{{ post.videojuego.nombre }}
+						<span class="ml-auto">|
+							{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
+					</h6>
+					<p class="card-text mb-2">{{ post.texto }}</p>
+					<a href="#" class="card-link btn btn-light">Reportar</a>
+					<a href="#" class="card-link btn btn-light">Comentar</a>
+				</div>
+			</div>
+		</a>
+	{% endfor %}
+{% endblock %}
+{% block javascripts %}
+	<script src=""></script>
+{% endblock %}

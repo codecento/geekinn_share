@@ -2,27 +2,24 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Seguimiento;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends Controller
+class SeguimientoController extends Controller
 {
     /**
-     * @Route("/", name="inicio")
+     * @Route("/seguir/{videojuego}", name="seguir")
      */
-    public function indexAction()
+    public function seguirAction($videojuego)
     {
-        
-        
         $em = $this->getDoctrine()->getManager();
+        $seguimiento = new Seguimiento();
         $posts = $em->getRepository('AppBundle:Post')->findUltimosPostsDiferentes([3]);
         $videojuegos = $em->getRepository('AppBundle:Videojuego')->findAll();
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'posts' => $posts,
-            'videojuegos' => $videojuegos
-        ));
+        
+        return $this->redirectToroute('videojuego', array('videojuego' => $request->get("post_id")));
     }
 
 

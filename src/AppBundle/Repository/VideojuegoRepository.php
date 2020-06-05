@@ -10,5 +10,8 @@ namespace AppBundle\Repository;
  */
 class VideojuegoRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    public function findAll()
+    {
+        return $this->findBy(array(), array("nombre" => 'ASC'));
+    }
 }

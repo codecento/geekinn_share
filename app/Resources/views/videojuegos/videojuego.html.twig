@@ -1,0 +1,40 @@
+{% extends "frontend.html.twig" %}
+
+{% block contenido %}
+	<div class="card videojuego-ficha elemento text-light">
+		<img src={{ asset(videojuego.ruta_imagen) }} class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">{{ videojuego.nombre }}</h5>
+			<hr>
+			<p>Fecha de lanzamiento:
+				{{ videojuego.fecha_lanzamiento|date("d-m-Y") }}</p>
+			<p>Plataformas:
+				{{ videojuego.plataformas }}</p>
+			<p>{{ videojuego.descripcion }}</p>
+		</div>
+	</div>
+	<div class="text-light mt-5" id="videojuego-relacionados">
+		<h4>Posts relacionados</h4>
+			<div class="text-light">
+				{# Bucle para cargar posts en la web #}
+				{% for post in posts %}
+					<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
+						<div class="card post text-light elemento mb-3">
+							<div class="card-body">
+								<h6 class="card-title">{{ post.usuario.nombre }}</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+									{{ post.videojuego.nombre }}
+									<span class="ml-auto">|
+										{{post.fecha_creacion|date("d-m-Y h:m:s")}}</span>
+								</h6>
+								<p class="card-text mb-2">{{ post.texto }}</p>
+								<a href="#" class="card-link btn btn-light">Reportar</a>
+								<a href="#" class="card-link btn btn-light">Comentar</a>
+							</div>
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+	</div>
+
+{% endblock %}

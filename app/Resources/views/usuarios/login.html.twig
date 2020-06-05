@@ -1,0 +1,25 @@
+{# app/Resources/views/usuario/login.html.twig  #}
+{% extends 'frontend.html.twig' %}
+
+{% block title %}Formulario de acceso
+{% endblock %}
+{% block contenido %}
+	<h4 class="text-light">Inicia sesión para empezar a disfrutar</h4>
+	{% if error %}
+        <p class="text-light">Usuario o contraseña incorrectos</p>
+	{% endif %}
+    <div class="elemento p-4">
+	<form action="{{ path('usuario_login_check') }}" method="post" class="text-light">
+		<div class="form-group">
+			<label for="inputUsuario">Usuario:
+			</label>
+			<input type="text" class="form-control" id="inputUsuario" name="_username" value="{{last_username}}">
+		</div>
+		<div class="form-group">
+			<label for="contraseña">Contraseña:</label>
+			<input type="password" class="form-control" id="contraseña" name="_password">
+		</div>
+		<button type="submit" class="btn btn-light">Acceder</button>
+	</form>
+    </div>
+{% endblock %}

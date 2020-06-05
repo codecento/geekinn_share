@@ -2,16 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\AppBundle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Seguimiento
  *
- * @ORM\Table(name="post")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\Table(name="seguimiento")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SeguimientoRepository")
  */
-class Post
+class Seguimiento
 {
     /**
      * @var int
@@ -22,33 +21,19 @@ class Post
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="texto", type="string", length=255)
-     */
-    private $texto;
-
-    /**
+     /**
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Videojuego")
      */
-    private $videojuego;
+    private $videojuegoId;
 
     /**
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      */
-    private $usuario;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_creacion", type="datetime")
-     */
-    private $fechaCreacion;
+    private $usuarioId;
 
 
     /**
@@ -61,38 +46,12 @@ class Post
         return $this->id;
     }
 
-    
-
-    /**
-     * Set texto
-     *
-     * @param string $texto
-     *
-     * @return Post
-     */
-    public function setTexto($texto)
-    {
-        $this->texto = $texto;
-
-        return $this;
-    }
-
-    /**
-     * Get texto
-     *
-     * @return string
-     */
-    public function getTexto()
-    {
-        return $this->texto;
-    }
-
     /**
      * Set videojuego
      *
      * @param integer $videojuego
      *
-     * @return Post
+     * @return Seguimiento
      */
     public function setvideojuego(\AppBundle\Entity\Videojuego $videojuego)
     {
@@ -116,7 +75,7 @@ class Post
      *
      * @param integer $usuario
      *
-     * @return Post
+     * @return Seguimiento
      */
     public function setusuario(\AppBundle\Entity\Usuario $usuario)
     {
@@ -133,30 +92,6 @@ class Post
     public function getusuario()
     {
         return $this->usuario;
-    }
-
-    /**
-     * Set fechaCreacion
-     *
-     * @param \DateTime $fechaCreacion
-     *
-     * @return Post
-     */
-    public function setFechaCreacion($fechaCreacion)
-    {
-        $this->fechaCreacion = $fechaCreacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaCreacion
-     *
-     * @return \DateTime
-     */
-    public function getFecha_Creacion()
-    {
-        return $this->fechaCreacion;
     }
 }
 

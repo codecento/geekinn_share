@@ -1,6 +1,30 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    firewalls: 
+        frontend: 
+            pattern: ^/* 
+            provider: usuarios 
+            anonymous: ~ 
+            form_login: 
+                login_path: usuario_login 
+                check_path: usuario_login_check 
+                default_target_path: /
+                always_use_default_target_path: true
+            logout: 
+                path: usuario_logout
+
+    access_control: 
+        - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/usuarios/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
+        - { path: ^/usuarios/*, roles: [ROLE_USUARIO, ROLE_ADMIN]  }
+
+    providers: 
+        usuarios: 
+            entity: { class: AppBundle\Entity\Usuario, property: nombre }
+    
+    encoders: 
+        AppBundle\Entity\Usuario: plaintext
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
