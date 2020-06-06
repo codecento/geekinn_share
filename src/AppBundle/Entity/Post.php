@@ -30,14 +30,14 @@ class Post
     private $texto;
 
     /**
-     * @var int
+     * @var Videojuego
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Videojuego")
      */
     private $videojuego;
 
     /**
-     * @var int
+     * @var Usuario
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      */
@@ -90,7 +90,7 @@ class Post
     /**
      * Set videojuego
      *
-     * @param integer $videojuego
+     * @param Videojuego $videojuego
      *
      * @return Post
      */
@@ -104,7 +104,7 @@ class Post
     /**
      * Get videojuego
      *
-     * @return int
+     * @return Videojuego
      */
     public function getvideojuego()
     {
@@ -114,7 +114,7 @@ class Post
     /**
      * Set usuario
      *
-     * @param integer $usuario
+     * @param Usuario $usuario
      *
      * @return Post
      */
@@ -128,7 +128,7 @@ class Post
     /**
      * Get usuario
      *
-     * @return int
+     * @return Usuario
      */
     public function getusuario()
     {

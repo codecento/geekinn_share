@@ -1,6 +1,20 @@
 {% extends "frontend.html.twig" %}
-
+{% set siguiendo = siguiendo %}
 {% block contenido %}
+	{% for flash_message in app.session.flashbag.get('notice') %}
+		<div class="toast ml-auto" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto">Notificación</strong>
+				<small>Hace un momento</small>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="toast-body flash-notice">
+				{{ flash_message }}
+			</div>
+		</div>
+	{% endfor %}
 	<div class="card videojuego-ficha elemento text-light">
 		<img src={{ asset(videojuego.ruta_imagen) }} class="card-img-top" alt="...">
 		<div class="card-body">
@@ -11,30 +25,38 @@
 			<p>Plataformas:
 				{{ videojuego.plataformas }}</p>
 			<p>{{ videojuego.descripcion }}</p>
+			{% if siguiendo %}
+			<a href="{{path('olvidar', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Dejar de seguir</a>
+			{% else %}
+			<a href="{{path('seguir', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Seguir</a>
+			{% endif %}
 		</div>
 	</div>
 	<div class="text-light mt-5" id="videojuego-relacionados">
 		<h4>Posts relacionados</h4>
-			<div class="text-light">
-				{# Bucle para cargar posts en la web #}
-				{% for post in posts %}
-					<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
-						<div class="card post text-light elemento mb-3">
-							<div class="card-body">
-								<h6 class="card-title">{{ post.usuario.nombre }}</h5>
-								<h6 class="card-subtitle mb-2 text-muted">Hablando de:
-									{{ post.videojuego.nombre }}
-									<span class="ml-auto">|
-										{{post.fecha_creacion|date("d-m-Y h:m:s")}}</span>
-								</h6>
-								<p class="card-text mb-2">{{ post.texto }}</p>
-								<a href="#" class="card-link btn btn-light">Reportar</a>
-								<a href="#" class="card-link btn btn-light">Comentar</a>
-							</div>
+		<div
+			class="text-light">
+			{# Bucle para cargar posts en la web #}
+			{% for post in posts %}
+				<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
+					<div class="card post text-light elemento mb-3">
+						<div class="card-body">
+							<h6 class="card-title">{{ post.usuario.nombre }}</h5>
+							<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+								{{ post.videojuego.nombre }}
+								<span class="ml-auto">|
+									{{post.fecha_creacion|date("d-m-Y h:m:s")}}</span>
+							</h6>
+							<p class="card-text mb-2">{{ post.texto }}</p>
+							<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
 						</div>
-					</a>
-				{% endfor %}
-			</div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
 	</div>
 
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset("js/toast.js") }}"></script>
 {% endblock %}

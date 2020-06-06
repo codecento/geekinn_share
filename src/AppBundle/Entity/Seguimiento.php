@@ -22,18 +22,18 @@ class Seguimiento
     private $id;
 
      /**
-     * @var int
+     * @var Videojuego
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Videojuego")
      */
-    private $videojuegoId;
+    private $videojuego;
 
     /**
-     * @var int
+     * @var Usuario
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      */
-    private $usuarioId;
+    private $usuario;
 
 
     /**

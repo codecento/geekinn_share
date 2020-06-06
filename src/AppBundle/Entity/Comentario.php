@@ -22,14 +22,14 @@ class Comentario
     private $id;
 
     /**
-     * @var int
+     * @var Usuario
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      */
     private $usuario;
 
     /**
-     * @var int
+     * @var Post
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post")
      */
@@ -70,7 +70,7 @@ class Comentario
     /**
      * Set usuario
      *
-     * @param integer $usuario
+     * @param Usuario $usuario
      *
      * @return Comentario
      */
@@ -84,7 +84,7 @@ class Comentario
     /**
      * Get usuario
      *
-     * @return int
+     * @return Usuario
      */
     public function getusuario()
     {
@@ -94,11 +94,11 @@ class Comentario
     /**
      * Set postId
      *
-     * @param integer $postId
+     * @param Post $post
      *
      * @return Comentario
      */
-    public function setPostId(\AppBundle\Entity\Post $post)
+    public function setPost(\AppBundle\Entity\Post $post)
     {
         $this->post = $post;
 
@@ -106,13 +106,13 @@ class Comentario
     }
 
     /**
-     * Get postId
+     * Get post
      *
-     * @return int
+     * @return Post
      */
-    public function getPostId()
+    public function getPost()
     {
-        return $this->postId;
+        return $this->post;
     }
 
     /**

@@ -38,10 +38,18 @@ class VideojuegoController extends Controller
         $posts = $em->getRepository("AppBundle:Post")->findBy(array(
             'videojuego' => $videojuego
         ));
+        if(!empty($em->getRepository("AppBundle:Seguimiento")->findBy(array("usuario" => $this->getUser()->getId(), "videojuego" => $videojuego))))
+        {
+            $siguiendo = true;
+        }else
+        {
+            $siguiendo = false;
+        }
 
         return $this->render('videojuegos/videojuego.html.twig', array(
             'videojuego' => $videojuego,
-            'posts' => $posts
+            'posts' => $posts,
+            'siguiendo' => $siguiendo
         ));
     }
 }

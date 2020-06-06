@@ -11,14 +11,25 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
-{
+{  
     //Consulta que recoge los ultimos posts para el inicio y que no están cargados aún
-    public function findUltimosPostsDiferentes($postsCargados)
+    public function findUltimosPostsDiferentes($postsCargados, $usuario)
     {
-        $postsCargados = "('". implode( "', '" , $postsCargados ) . "' )";
-
         $em = $this->getEntityManager();
-        $dql = "SELECT p,u,v FROM AppBundle:Post p JOIN p.usuario u JOIN p.videojuego v WHERE p NOT IN ".$postsCargados."ORDER BY p.fechaCreacion DESC";
+
+        $postsCargados = "('". implode( "', '" , $postsCargados ) . "' )";
+        
+        $seguimientos = $em->getRepository("AppBundle:Seguimiento")->findVideojuegosDeSeguimiento($usuario);
+        $videojuegosArray = [];
+
+        foreach($seguimientos as $seguimiento)
+        {
+            $videojuegosArray[] = $seguimiento->getVideojuego()->getId();
+        }
+
+        $videojuegos = "('". implode( "', '" , $videojuegosArray ) . "' )";
+
+        $dql = "SELECT p,u,v FROM AppBundle:Post p JOIN p.usuario u JOIN p.videojuego v WHERE p NOT IN ".$postsCargados." AND p.videojuego IN $videojuegos ORDER BY p.fechaCreacion DESC";
         $consulta = $em->createQuery($dql);
         //$consulta->setParameter('postsCargados', $postsCargados);
         $consulta->getMaxResults(5);

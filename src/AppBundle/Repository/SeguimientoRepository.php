@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+
 /**
  * SeguimientoRepository
  *
@@ -10,4 +12,16 @@ namespace AppBundle\Repository;
  */
 class SeguimientoRepository extends \Doctrine\ORM\EntityRepository
 {
+    //Consulta que recoge los ultimos posts para el inicio y que no están cargados aún
+    public function findVideojuegosDeSeguimiento($usuario)
+    {
+        $em = $this->getEntityManager();
+        
+        $dql = "SELECT s,u,v FROM AppBundle:Seguimiento s JOIN s.usuario u JOIN s.videojuego v WHERE s.usuario = :usuario";
+        
+        $consulta = $em->createQuery($dql)->setParameters(array(
+            'usuario' => $usuario,
+        ));;
+        return $consulta->getResult();
+    }
 }

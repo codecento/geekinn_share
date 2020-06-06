@@ -13,10 +13,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        
-        
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findUltimosPostsDiferentes([3]);
+        $usuario = $this->getUser();
+        $posts = $em->getRepository('AppBundle:Post')->findUltimosPostsDiferentes([],$usuario);
         $videojuegos = $em->getRepository('AppBundle:Videojuego')->findAll();
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', array(

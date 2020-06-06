@@ -17,9 +17,10 @@
 		</div>
 	</div>
 	{% if app.user.nombre is same as(usuario.nombre) %}
-	<h4 class="text-light">Mis posts</h4>
+		<h4 class="text-light">Mis posts</h4>
 	{% else %}
-	<h4 class="text-light">Posts de {{usuario.nombre}}</h4>
+		<h4 class="text-light">Posts de
+			{{usuario.nombre}}</h4>
 	{% endif %}
 	{# Bucle para cargar posts del usuario en la web #}
 	{% for post in posts %}
@@ -35,8 +36,10 @@
 							{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
 					</h6>
 					<p class="card-text mb-2">{{ post.texto }}</p>
-					<a href="#" class="card-link btn btn-light">Reportar</a>
-					<a href="#" class="card-link btn btn-light">Comentar</a>
+					{% if app.user is same as(post.usuario) %}
+						<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
+					{% endif %}
+					<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
 				</div>
 			</div>
 		</a>
