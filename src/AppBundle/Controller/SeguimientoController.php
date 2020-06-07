@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/seguimientos")
+ */
 class SeguimientoController extends Controller
 {
     /**
@@ -30,7 +33,7 @@ class SeguimientoController extends Controller
             'notice',
             'Ahora sigues a este juego.'
         );
-        
+
         return $this->redirectToRoute('videojuego', array('videojuego' => $videojuego));
     }
 
@@ -41,21 +44,18 @@ class SeguimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $usuarioId = $this->getUser()->getId();
-        
+
         $seguimiento = $em->getRepository("AppBundle:Seguimiento")->findOneBy(array("videojuego" => $videojuego, "usuario" => $usuarioId));
 
         //Comprobar si el comentario está escrito por el usuario para poder borrar de forma segura
-        if($this->getUser() == $seguimiento->getUsuario())
-        {
+        if ($this->getUser() == $seguimiento->getUsuario()) {
             $em->remove($seguimiento);
             $em->flush();
             $this->addFlash(
                 'notice',
                 'Has dejado de seguir este juego.'
             );
-        }
-        else
-        {
+        } else {
             $this->addFlash(
                 'notice',
                 'No se ha podido dejar de seguir.'

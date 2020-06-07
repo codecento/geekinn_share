@@ -1,0 +1,11 @@
+{% extends 'backend.html.twig' %}
+
+{% block contenido %}
+    <h3 class="text-light">Panel de administración</h3>
+    <ul>
+        <li><a href="{{path('usuariocrud_index')}}" class="text-light">Usuarios</a></li>
+        <li><a href="{{path('post_index')}}" class="text-light">Posts</a></li>
+        <li> <a href="{{path('comentariocrud_index')}}" class="text-light">Comentarios</a></li>
+        <li><a href="{{path('videojuegocrud_index')}}" class="text-light">Videojuegos</a></li>
+    </ul>
+{% endblock %}

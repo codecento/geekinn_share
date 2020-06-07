@@ -1,0 +1,43 @@
+{% extends 'backend.html.twig' %}
+
+{% block contenido %}
+    <h1>Comentarios list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texto</th>
+                <th>Rutamedia</th>
+                <th>Fechapublicacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comentario in comentarios %}
+            <tr>
+                <td><a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">{{ comentario.id }}</a></td>
+                <td>{{ comentario.texto }}</td>
+                <td>{{ comentario.rutaMedia }}</td>
+                <td>{% if comentario.fechaPublicacion %}{{ comentario.fechaPublicacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('comentariocrud_edit', { 'id': comentario.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comentariocrud_new') }}">Create a new comentario</a>
+        </li>
+    </ul>
+{% endblock %}

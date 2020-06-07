@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Videojuegos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Rutaimagen</th>
+                <th>Fechalanzamiento</th>
+                <th>Plataformas</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for videojuego in videojuegos %}
+            <tr>
+                <td><a href="{{ path('videojuegocrud_show', { 'id': videojuego.id }) }}">{{ videojuego.id }}</a></td>
+                <td>{{ videojuego.nombre }}</td>
+                <td>{{ videojuego.descripcion }}</td>
+                <td>{{ videojuego.ruta_Imagen }}</td>
+                <td>{% if videojuego.fecha_Lanzamiento %}{{ videojuego.fecha_Lanzamiento|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ videojuego.plataformas }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('videojuegocrud_show', { 'id': videojuego.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('videojuegocrud_edit', { 'id': videojuego.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('videojuegocrud_new') }}">Create a new videojuego</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Videojuego</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ videojuego.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ videojuego.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ videojuego.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Rutaimagen</th>
+                <td>{{ videojuego.rutaImagen }}</td>
+            </tr>
+            <tr>
+                <th>Fechalanzamiento</th>
+                <td>{% if videojuego.fechaLanzamiento %}{{ videojuego.fechaLanzamiento|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Plataformas</th>
+                <td>{{ videojuego.plataformas }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('videojuegocrud_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('videojuegocrud_edit', { 'id': videojuego.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -2,19 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Entity\Post;
 use AppBundle\Entity\Usuario;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- *  @Route("/usuarios")
+ * Usuario controller.
+ *
+ * @Route("/usuarios")
  */
 class UsuarioController extends Controller
 {
@@ -96,5 +93,127 @@ class UsuarioController extends Controller
     {
         // el logout lo hace Symfony automáticamente, por lo que 
         // no hay que añadir ningún código en este método 
+    }
+
+    /**
+     * Lists all usuario entities.
+     *
+     * @Route("/usuariocrud/", name="usuariocrud_index")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
+
+        return $this->render('usuario/index.html.twig', array(
+            'usuarios' => $usuarios,
+        ));
+    }
+
+    /**
+     * Creates a new usuario entity.
+     *
+     * @Route("/usuariocrud/new", name="usuariocrud_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newAction(Request $request)
+    {
+        $usuario = new Usuario();
+        $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario);
+            $em->flush();
+
+            return $this->redirectToRoute('usuariocrud_show', array('id' => $usuario->getId()));
+        }
+
+        return $this->render('usuario/new.html.twig', array(
+            'usuario' => $usuario,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a usuario entity.
+     *
+     * @Route("/usuariocrud/{id}", name="usuariocrud_show")
+     * @Method("GET")
+     */
+    public function showAction(Usuario $usuario)
+    {
+        $deleteForm = $this->createDeleteForm($usuario);
+
+        return $this->render('usuario/show.html.twig', array(
+            'usuario' => $usuario,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Displays a form to edit an existing usuario entity.
+     *
+     * @Route("/usuariocrud/{id}/edit", name="usuariocrud_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Usuario $usuario)
+    {
+        $deleteForm = $this->createDeleteForm($usuario);
+        $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('usuariocrud_edit', array('id' => $usuario->getId()));
+        }
+
+        return $this->render('usuario/edit.html.twig', array(
+            'usuario' => $usuario,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a usuario entity.
+     *
+     * @Route("/usuariocrud/{id}", name="usuariocrud_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, Usuario $usuario)
+    {
+
+        $form = $this->createDeleteForm($usuario);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($usuario);
+            
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('usuariocrud_index');
+    }
+
+    /**
+     * Creates a form to delete a usuario entity.
+     *
+     * @param Usuario $usuario The usuario entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Usuario $usuario)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('usuariocrud_delete', array('id' => $usuario->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }

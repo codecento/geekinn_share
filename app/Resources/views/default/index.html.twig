@@ -42,29 +42,29 @@
 	{% endif %}
 	{# Bucle para cargar posts en la web #}
 	{% for post in posts %}
-		<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
-			<div class="card post text-light elemento mb-3">
-				<div class="card-body">
-					<a href="{{path('perfil', {usuario: post.usuario.id})}}">
-						<h6 class="card-title text-light">{{ post.usuario.nombre }}</h5>
-					</a>
-					<h6 class="card-subtitle mb-2 text-muted">Hablando de:
-						{{ post.videojuego.nombre }}
-						<span class="ml-auto">|
-							{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
-					</h6>
-					<p class="card-text mb-2">{{ post.texto }}</p>
-					{% if app.user is same as(post.usuario) %}
-						<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
-					{% endif %}
-					<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
-				</div>
+		<div class="card post text-light elemento mb-3" id="{{post.id}}">
+			<div class="card-body">
+				<a href="{{path('perfil', {usuario: post.usuario.id})}}">
+					<h6 class="card-title text-light">{{ post.usuario.nombre }}</h5>
+				</a>
+				<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+					{{ post.videojuego.nombre }}
+					<span class="ml-auto">|
+						{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
+				</h6>
+				<p class="card-text mb-2">{{ post.texto }}</p>
+				{% if app.user is same as(post.usuario) %}
+					<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
+				{% endif %}
+				<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
 			</div>
-		</a>
+		</div>
 	{% endfor %}
-	<div class="text-center">
-		<a href="" class="card-link btn btn-light">Mostrar más</a>
-	</div>
+	{% if app.user %}
+		<div class="text-center" id="contenedor-mostrar-mas">
+			<a id="boton-cargar-posts" href="#boton-cargar-posts" class="card-link btn btn-light">Mostrar más</a>
+		</div>
+	{% endif %}
 {% endblock %}
 {% block javascripts %}
 	<script src="{{ asset("js/index.js") }}"></script>

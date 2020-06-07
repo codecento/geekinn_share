@@ -1,0 +1,40 @@
+{% extends 'backend.html.twig' %}
+
+{% block contenido %}
+    <h1>Comentario</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comentario.id }}</td>
+            </tr>
+            <tr>
+                <th>Texto</th>
+                <td>{{ comentario.texto }}</td>
+            </tr>
+            <tr>
+                <th>Rutamedia</th>
+                <td>{{ comentario.rutaMedia }}</td>
+            </tr>
+            <tr>
+                <th>Fechapublicacion</th>
+                <td>{% if comentario.fechaPublicacion %}{{ comentario.fechaPublicacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comentariocrud_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('comentariocrud_edit', { 'id': comentario.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,4 @@
+app_usuariocrud:
+    resource: "@AppBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuariocrud
+

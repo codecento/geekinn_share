@@ -1,0 +1,45 @@
+{% extends 'backend.html.twig' %}
+
+{% block contenido %}
+    <h1>Usuarios list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="pr-4 pl-4">Id</th>
+                <th class="pr-4 pl-4">Nombre</th>
+                <th class="pr-4 pl-4">Password</th>
+                <th class="pr-4 pl-4">Email</th>
+                <th class="pr-4 pl-4">Rutaimagen</th>
+                <th class="pr-4 pl-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td class="pr-4 pl-4"><a href="{{ path('usuariocrud_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
+                <td class="pr-4 pl-4">{{ usuario.nombre }}</td>
+                <td class="pr-4 pl-4">{{ usuario.password }}</td>
+                <td class="pr-4 pl-4">{{ usuario.email }}</td>
+                <td class="pr-4 pl-4">{{ usuario.rutaImagen }}</td>
+                <td class="pr-4 pl-4">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="{{ path('usuariocrud_show', { 'id': usuario.id }) }}">Mostrar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('usuariocrud_edit', { 'id': usuario.id }) }}">Editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('usuariocrud_new') }}">Create a new usuario</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -4,7 +4,7 @@ security:
     firewalls: 
         frontend: 
             pattern: ^/* 
-            provider: usuarios 
+            provider: chain_provider
             anonymous: ~ 
             form_login: 
                 login_path: usuario_login 
@@ -15,16 +15,33 @@ security:
                 path: usuario_logout
 
     access_control: 
-        - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
-        - { path: ^/usuarios/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
-        - { path: ^/usuarios/*, roles: [ROLE_USUARIO, ROLE_ADMIN]  }
-
-    providers: 
+        - { path: ^/usuarios/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/videojuegos/portada, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuarios/usuariocrud, roles: ROLE_ADMIN } 
+        - { path: ^/usuarios/*, roles: [ROLE_USUARIO, ROLE_ADMIN] } 
+        - { path: ^/videojuegos/*, roles: [ROLE_USUARIO, ROLE_ADMIN] } 
+        - { path: ^/posts/*, roles: [ROLE_USUARIO, ROLE_ADMIN] }
+        - { path: ^/comentarios/*, roles: [ROLE_USUARIO, ROLE_ADMIN] }
+        - { path: ^/seguimientos/*, roles: [ROLE_USUARIO, ROLE_ADMIN] }  
+        
+    providers:
+        chain_provider:
+            chain:
+                providers: [usuarios, administradores]
         usuarios: 
             entity: { class: AppBundle\Entity\Usuario, property: nombre }
+        administradores: 
+            memory: 
+                users: 
+                    admin: { password: '$2y$13$yJ4XcpZSyqZCL2LSvUd8CuVdxoTRg1Nzdpgx2kbVxE6wEdoYjoroK', roles: ['ROLE_ADMIN'] }
+
+    role_hierarchy: 
+        #ROLE_ADMIN: [ROLE_USUARIO]
     
     encoders: 
         AppBundle\Entity\Usuario: plaintext
+        Symfony\Component\Security\Core\User\User: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
