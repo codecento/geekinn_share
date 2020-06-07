@@ -1,20 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend.html.twig' %}
 
-{% block body %}
-    <h1>Videojuego edit</h1>
+{% block contenido %}
+    <h1>Editar videojuegos</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Editar" />
     {{ form_end(edit_form) }}
 
     <ul>
         <li>
-            <a href="{{ path('videojuegocrud_index') }}">Back to the list</a>
+            <a href="{{ path('videojuegocrud_index') }}">Volver a la lista</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Borrar">
             {{ form_end(delete_form) }}
         </li>
     </ul>

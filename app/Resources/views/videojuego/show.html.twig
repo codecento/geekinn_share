@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'backend.html.twig' %}
 
-{% block body %}
+{% block contenido %}
     <h1>Videojuego</h1>
 
     <table>
@@ -34,10 +34,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('videojuegocrud_index') }}">Back to the list</a>
+            <a href="{{ path('videojuegocrud_index') }}">Volver a la lista</a>
         </li>
         <li>
-            <a href="{{ path('videojuegocrud_edit', { 'id': videojuego.id }) }}">Edit</a>
+            <a href="{{ path('videojuegocrud_edit', { 'id': videojuego.id }) }}">Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

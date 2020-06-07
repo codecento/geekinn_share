@@ -1,7 +1,7 @@
 {% extends 'backend.html.twig' %}
 
 {% block contenido %}
-    <h1>Usuario creation</h1>
+    <h1>Creación de usuario</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('usuariocrud_index') }}">Back to the list</a>
+            <a href="{{ path('usuariocrud_index') }}">Volver a la lista</a>
         </li>
     </ul>
 {% endblock %}

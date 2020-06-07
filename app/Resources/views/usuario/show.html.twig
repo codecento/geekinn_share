@@ -30,14 +30,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('usuariocrud_index') }}">Back to the list</a>
+            <a href="{{ path('usuariocrud_index') }}">Volver a la lista</a>
         </li>
         <li>
-            <a href="{{ path('usuariocrud_edit', { 'id': usuario.id }) }}">Edit</a>
+            <a href="{{ path('usuariocrud_edit', { 'id': usuario.id }) }}">Editar</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input class="btn btn-light" type="submit" value="Delete">
+                <input class="btn btn-light" type="submit" value="Borrar">
             {{ form_end(delete_form) }}
         </li>
     </ul>

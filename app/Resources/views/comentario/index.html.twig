@@ -1,32 +1,32 @@
 {% extends 'backend.html.twig' %}
 
 {% block contenido %}
-    <h1>Comentarios list</h1>
+    <h1>Lista de comentarios</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Texto</th>
-                <th>Rutamedia</th>
-                <th>Fechapublicacion</th>
-                <th>Actions</th>
+                <th class="pr-4 pl-4">Id</th>
+                <th class="pr-4 pl-4">Texto</th>
+                <th class="pr-4 pl-4">Rutamedia</th>
+                <th class="pr-4 pl-4">Fechapublicacion</th>
+                <th class="pr-4 pl-4">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for comentario in comentarios %}
             <tr>
-                <td><a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">{{ comentario.id }}</a></td>
-                <td>{{ comentario.texto }}</td>
-                <td>{{ comentario.rutaMedia }}</td>
-                <td>{% if comentario.fechaPublicacion %}{{ comentario.fechaPublicacion|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
+                <td class="pr-4 pl-4"><a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">{{ comentario.id }}</a></td>
+                <td class="pr-4 pl-4">{{ comentario.texto }}</td>
+                <td class="pr-4 pl-4">{{ comentario.rutaMedia }}</td>
+                <td class="pr-4 pl-4">{% if comentario.fechaPublicacion %}{{ comentario.fechaPublicacion|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td class="pr-4 pl-4">
                     <ul>
                         <li>
-                            <a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">show</a>
+                            <a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">Mostrar</a>
                         </li>
                         <li>
-                            <a href="{{ path('comentariocrud_edit', { 'id': comentario.id }) }}">edit</a>
+                            <a href="{{ path('comentariocrud_edit', { 'id': comentario.id }) }}">Editar</a>
                         </li>
                     </ul>
                 </td>
@@ -37,7 +37,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('comentariocrud_new') }}">Create a new comentario</a>
+            <a href="{{ path('comentariocrud_new') }}">Crear un comentario</a>
         </li>
     </ul>
 {% endblock %}
