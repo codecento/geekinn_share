@@ -2,10 +2,10 @@
 
 {% block contenido %}
 	
-	<div class="d-flex justify-content-around">
+	<div class="d-flex flex-wrap justify-content-lg-around justify-content-between" id="videojuegos">
 			{# Bucle para crear la lista de videojuegos #}
 			{% for videojuego in videojuegos %}
-				<a href="{{ path('videojuego', { videojuego: videojuego.id }) }}">
+				<a href="{{ path('videojuego', { videojuego: videojuego.id }) }}" class="mb-5">
 					<div class="card videojuego-panel elemento text-light">
 						<img src={{ asset(videojuego.ruta_imagen) }} class="card-img-top" alt="...">
 						<div class="card-body">

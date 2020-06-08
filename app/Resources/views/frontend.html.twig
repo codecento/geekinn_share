@@ -86,14 +86,14 @@
 				<a href="{{path('crud')}}" class="text-center w-100"><h3 class="text-light col-12">Acceder a vista de administrador</h3></a>
 			{% else %}
 			{# Contenedor para el contenido principal de cada página #}
-			<div id="contenido" class="col-7 offset-1">
+			<div id="contenido" class="col-lg-7 offset-1">
 				{% block contenido %}{% endblock %}
 			</div>
 			
 			<aside
-				id="contenido-lateral" class="col-3 text-light d-flex flex-column">
+				id="contenido-lateral" class="col-lg-3 text-light d-flex flex-column">
 
-				{# Barra de búsqueda #}
+				{# Barra de búsqueda 
 				<div class="ml-auto mr-5 input-group input-group-sm">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-sm">
@@ -104,7 +104,7 @@
 						</span>
 					</div>
 					<input type="text" class="form-control" placeholder="Busca posts, usuarios..." aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-				</div>
+				</div>#}
 
 				{# Footer en el lateral de la página siempre, para que los paneles puedan aparecer de forma infinita #}
 				<footer class="elemento">

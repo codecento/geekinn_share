@@ -60,9 +60,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
             return $this->redirectToRoute('inicio');
-        }
-
-
+        }   
 
         return $this->render('usuarios/registro.html.twig', array('formulario' => $formulario->createView()));
     }

@@ -25,7 +25,7 @@
                 <td class="pr-4 pl-4">{% if videojuego.fecha_Lanzamiento %}{{ videojuego.fecha_Lanzamiento|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td class="pr-4 pl-4">{{ videojuego.plataformas }}</td>
                 <td class="pr-4 pl-4">
-                    <ul>
+                    <ul class="list-unstyled">
                         <li>
                             <a href="{{ path('videojuegocrud_show', { 'id': videojuego.id }) }}">Mostrar</a>
                         </li>

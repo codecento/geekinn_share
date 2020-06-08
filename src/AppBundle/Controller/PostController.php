@@ -14,8 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class PostController extends Controller
 {
-    
-
     /**
      * @Route("/post/{post}", name="post")
      */
@@ -40,7 +38,9 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
         $post = new Post();
 
-        $videojuego = $em->getRepository("AppBundle:Videojuego")->findOneBy(array("nombre" => $request->request->get('videojuego')));
+        $videojuego = $em->getRepository("AppBundle:Videojuego")->findOneBy(array(
+            "nombre" => $request->request->get('videojuego')
+        ));
         $post->setvideojuego($videojuego);
         $post->setTexto($request->request->get("texto"));
         $post->setusuario($this->getUser());

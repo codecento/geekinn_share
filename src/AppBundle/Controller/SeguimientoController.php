@@ -20,7 +20,6 @@ class SeguimientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $seguimiento = new Seguimiento();
-        //$videojuegoObjeto = new Videojuego();
 
         $videojuegoObjeto = $em->getRepository("AppBundle:Videojuego")->findOneBy(array("id" => $videojuego));
 

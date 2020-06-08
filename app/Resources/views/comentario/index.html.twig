@@ -21,7 +21,7 @@
                 <td class="pr-4 pl-4">{{ comentario.rutaMedia }}</td>
                 <td class="pr-4 pl-4">{% if comentario.fechaPublicacion %}{{ comentario.fechaPublicacion|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td class="pr-4 pl-4">
-                    <ul>
+                    <ul class="list-unstyled">
                         <li>
                             <a href="{{ path('comentariocrud_show', { 'id': comentario.id }) }}">Mostrar</a>
                         </li>
