@@ -40,7 +40,7 @@ security:
         #ROLE_ADMIN: [ROLE_USUARIO]
     
     encoders: 
-        AppBundle\Entity\Usuario: plaintext
+        AppBundle\Entity\Usuario: bcrypt
         Symfony\Component\Security\Core\User\User: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded

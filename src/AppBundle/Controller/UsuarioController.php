@@ -6,6 +6,10 @@ use AppBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -62,7 +66,7 @@ class UsuarioController extends Controller
             return $this->redirectToRoute('inicio');
         }   
 
-        return $this->render('usuarios/registro.html.twig', array('formulario' => $formulario->createView()));
+        return $this->render('usuarios/registro.html.twig', array('formulario' => $formulario->createView(),));
     }
 
 

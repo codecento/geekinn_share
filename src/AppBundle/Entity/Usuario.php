@@ -26,7 +26,7 @@ class Usuario implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=25, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\Length(min = 4)
      */
     private $nombre;
 

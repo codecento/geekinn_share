@@ -7,19 +7,30 @@
 	<h4 class="text-light">Regístrate gratuitamente y comienza a compartir</h4>
     <div class="elemento p-4 text-light" id="formularioRegistro">
 
+
 		{{ form_start(formulario) }}
+			{% if form_errors(formulario.nombre) %}
+				<span class="text-danger">El nombre de usuario debe tener como mínimo 4 caracteres</span><br>
+			{% endif %}
 			{{ form_label(formulario.nombre, 'Nombre de usuario: ') }}
 			<br>
 			{{ form_widget(formulario.nombre) }} 
 			<br>
+			{% if form_errors(formulario.email) %}
+				<span class="text-danger">Comprueba que es un email válido: Ej. nombre@dominio.com</span><br>
+			{% endif %}
 			{{ form_label(formulario.email, 'Correo electrónico: ') }}
 			<br>
 			{{ form_widget(formulario.email) }} 
 			<br>
+			{% if form_errors(formulario.password) %}
+				<span class="text-danger">La contraseña debe tener como mínimo 6 caracteres</span><br>
+			{% endif %}
 			{{ form_label(formulario.password, 'Contraseña: ') }}
 			<br>
 			{{ form_widget(formulario.password) }} 
 			<br>
+			{{ form_errors(formulario.rutaimagen) }}
 			{{ form_label(formulario.rutaimagen, 'Imagen de perfil: ') }}
 			<br>
 			{{ form_widget(formulario.rutaimagen) }} 

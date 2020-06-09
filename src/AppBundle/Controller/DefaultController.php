@@ -24,6 +24,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
         $posts = $em->getRepository('AppBundle:Post')->findUltimosPosts([], $usuario);

@@ -9,6 +9,7 @@ parameters:
     locale: en
 
 framework:
+    translator: { fallback: es }
     validation: { enable_annotations: true }
     #esi: ~
     #translator: { fallbacks: ['%locale%'] }
