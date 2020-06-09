@@ -1,6 +1,20 @@
 {% extends 'frontend.html.twig' %}
 
 {% block contenido %}
+	{% for flash_message in app.session.flashbag.get('notice') %}
+		<div class="toast ml-auto" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<strong class="mr-auto">Notificación</strong>
+				<small>Hace un momento</small>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="toast-body flash-notice">
+				{{ flash_message }}
+			</div>
+		</div>
+	{% endfor %}
 	<h4 class="text-light">Página de perfil</h4>
 	<div class="elemento container mb-4" id="perfil_datos">
 		<div class="row">
@@ -12,6 +26,15 @@
 				<p>{{usuario.nombre}}</p>
 				{% if app.user.nombre is same as(usuario.nombre) %}
 					<h5>Cambiar contraseña:</h5>
+					{{ form_start(formulario_contraseña) }}
+					{% if form_errors(formulario_contraseña.password) %}
+						<span class="text-danger">La contraseña debe ser de 6 caracteres mínimo.</span>
+					{% endif %}
+					{{ form_label(formulario_contraseña.password, 'Nueva contraseña: ') }}<br>
+					{{ form_widget(formulario_contraseña.password) }}
+					<br>
+					{{ form_widget(formulario_contraseña.cambiar)}}
+					{{ form_end(formulario_contraseña) }}
 				{% endif %}
 			</div>
 		</div>
@@ -22,29 +45,35 @@
 		<h4 class="text-light">Posts de
 			{{usuario.nombre}}</h4>
 	{% endif %}
-	{# Bucle para cargar posts del usuario en la web #}
-	{% for post in posts %}
-		<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
-			<div class="card post text-light elemento mb-3">
-				<div class="card-body">
-					<a href="{{path('perfil', {usuario: post.usuario.id})}}">
-						<h6 class="card-title">{{ post.usuario.nombre }}</h5>
-					</a>
-					<h6 class="card-subtitle mb-2 text-muted">Hablando de:
-						{{ post.videojuego.nombre }}
-						<span class="ml-auto">|
-							{{post.fecha_creacion|date("d-m-Y H:i:s")}}</span>
-					</h6>
-					<p class="card-text mb-2">{{ post.texto }}</p>
-					{% if app.user is same as(post.usuario) %}
-						<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
-					{% endif %}
-					<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
+
+	{% if posts %}
+		{# Bucle para cargar posts del usuario en la web #}
+		{% for post in posts %}
+			<a href="{{ path('post', { post: post.id } ) }}" class="post text-light">
+				<div class="card post text-light elemento mb-3">
+					<div class="card-body">
+						<a href="{{path('perfil', {usuario: post.usuario.id})}}">
+							<h6 class="card-title">{{ post.usuario.nombre }}</h5>
+						</a>
+						<h6 class="card-subtitle mb-2 text-muted">Hablando de:
+							{{ post.videojuego.nombre }}
+							<span class="ml-auto">|
+								{{post.fechacreacion|date("d-m-Y H:i:s")}}</span>
+						</h6>
+						<p class="card-text mb-2">{{ post.texto }}</p>
+						{% if app.user is same as(post.usuario) %}
+							<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
+						{% endif %}
+						<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
+					</div>
 				</div>
-			</div>
-		</a>
-	{% endfor %}
+			</a>
+		{% endfor %}
+	{% else %}
+		<h5 class="text-light text-center">No hay posts</h5>
+	{% endif %}
+
 {% endblock %}
 {% block javascripts %}
-	<script src=""></script>
+	<script src="{{ asset("js/toast.js") }}"></script>
 {% endblock %}

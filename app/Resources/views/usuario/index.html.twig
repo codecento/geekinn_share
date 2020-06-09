@@ -6,23 +6,23 @@
     <table>
         <thead>
             <tr>
-                <th class="pr-4 pl-4">Id</th>
-                <th class="pr-4 pl-4">Nombre</th>
-                <th class="pr-4 pl-4">Password</th>
-                <th class="pr-4 pl-4">Email</th>
-                <th class="pr-4 pl-4">Rutaimagen</th>
-                <th class="pr-4 pl-4">Actions</th>
+                <th class="pr-2 pl-2">Id</th>
+                <th class="pr-2 pl-2">Nombre</th>
+                <th class="pr-2 pl-2">Password</th>
+                <th class="pr-2 pl-2">Email</th>
+                <th class="pr-2 pl-2">Rutaimagen</th>
+                <th class="pr-2 pl-2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for usuario in usuarios %}
             <tr>
-                <td class="pr-4 pl-4"><a href="{{ path('usuariocrud_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
-                <td class="pr-4 pl-4">{{ usuario.nombre }}</td>
-                <td class="pr-4 pl-4">{{ usuario.password }}</td>
-                <td class="pr-4 pl-4">{{ usuario.email }}</td>
-                <td class="pr-4 pl-4">{{ usuario.rutaImagen }}</td>
-                <td class="pr-4 pl-4">
+                <td class="pr-2 pl-2"><a href="{{ path('usuariocrud_show', { 'id': usuario.id }) }}">{{ usuario.id }}</a></td>
+                <td class="pr-2 pl-2">{{ usuario.nombre }}</td>
+                <td class="pr-2 pl-2">{{ usuario.password }}</td>
+                <td class="pr-2 pl-2">{{ usuario.email }}</td>
+                <td class="pr-2 pl-2">{{ usuario.rutaImagen }}</td>
+                <td class="pr-2 pl-2">
                     <ul class="list-unstyled">
                         <li>
                             <a href="{{ path('usuariocrud_show', { 'id': usuario.id }) }}">Mostrar</a>

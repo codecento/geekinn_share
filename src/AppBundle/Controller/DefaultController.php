@@ -48,7 +48,7 @@ class DefaultController extends Controller
         $datosHtml = "";
 
         foreach ($posts as $post) {
-            $fecha = $post->getFecha_Creacion();
+            $fecha = $post->getFechaCreacion();
 
             $datosHtml .= "<div class=\"card post text-light elemento mb-3\" id=\"" . $post->getId() . "\">
 			<div class=\"card-body\">

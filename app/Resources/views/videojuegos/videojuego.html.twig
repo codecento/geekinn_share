@@ -26,9 +26,9 @@
 				{{ videojuego.plataformas }}</p>
 			<p>{{ videojuego.descripcion }}</p>
 			{% if siguiendo %}
-			<a href="{{path('olvidar', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Dejar de seguir</a>
+				<a href="{{path('olvidar', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Dejar de seguir</a>
 			{% else %}
-			<a href="{{path('seguir', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Seguir</a>
+				<a href="{{path('seguir', { videojuego: videojuego.id })}}" class="card-link btn btn-light">Seguir</a>
 			{% endif %}
 		</div>
 	</div>
@@ -45,9 +45,12 @@
 							<h6 class="card-subtitle mb-2 text-muted">Hablando de:
 								{{ post.videojuego.nombre }}
 								<span class="ml-auto">|
-									{{post.fecha_creacion|date("d-m-Y h:m:s")}}</span>
+									{{post.fechacreacion|date("d-m-Y H:i:s")}}</span>
 							</h6>
 							<p class="card-text mb-2">{{ post.texto }}</p>
+							{% if app.user is same as(post.usuario) %}
+								<a href="{{path('borrar_post', { post_id: post.id })}}" class="boton-borrar-post card-link btn btn-light">Borrar</a>
+							{% endif %}
 							<a href="{{path('post', { post: post.id })}}" class="card-link btn btn-light">Comentar</a>
 						</div>
 					</div>

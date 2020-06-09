@@ -1,21 +1,22 @@
 {% extends 'backend.html.twig' %}
 
 {% block contenido %}
-    <h1>Usuario edit</h1>
+	<h1>Editar usuario</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+	{{ form_start(edit_form) }}
+    {{ form_label(edit_form.nombre, "Nombre") }}<br>
+	{{ form_widget(edit_form.nombre) }}<br>
+    {{ form_label(edit_form.password, "Contraseña") }}<br>
+	{{ form_widget(edit_form.password) }}<br>
+    {{ form_label(edit_form.email, "Email") }}<br>
+	{{ form_widget(edit_form.email) }}<br>
+    {{ form_label(edit_form.rutaImagen, "Ruta imagen") }}<br>
+	{{ form_widget(edit_form.rutaImagen) }}<br>
+	<input class="text-light mt-2" type="submit" value="Edit"/>
+	{{ form_end(edit_form) }}
+	{{ form_start(delete_form) }}
+	<input type="submit" class="text-light mt-1" value="Borrar">
+	{{ form_end(delete_form) }}
+	<a href="{{ path('usuariocrud_index') }}">Volver a la lista</a>
 
-    <ul>
-        <li>
-            <a href="{{ path('usuariocrud_index') }}"Volver a la lista</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Borrar">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

@@ -23,7 +23,7 @@
 				{% if is_granted("ROLE_USUARIO") %}
 				{# Enlaces a páginas de la web #}
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="{{path('inicio')}}">Inicio
 							<span class="sr-only">(current)</span>
 						</a>
@@ -119,3 +119,4 @@
 			</div>
 		</main>
 	{% endblock %}
+	

@@ -154,7 +154,7 @@ class Post
      *
      * @return \DateTime
      */
-    public function getFecha_Creacion()
+    public function getFechaCreacion()
     {
         return $this->fechaCreacion;
     }

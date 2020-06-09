@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comentario;
+use \DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ class ComentarioController extends Controller
         $comentario = new Comentario();
 
         $post = $em->getRepository("AppBundle:Post")->findOneBy(array("id" => $request->request->get('post')));
-        $comentario->setPostId($post);
+        $comentario->setPost($post);
         $comentario->setTexto($request->request->get("texto"));
         $comentario->setusuario($this->getUser());
         $comentario->setFechaPublicacion(new DateTime());

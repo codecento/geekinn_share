@@ -26,7 +26,7 @@
 
 		<!-- Fecha -->
 		<p class="small">Compartido:
-			{{ post.fecha_creacion|date("d-m-Y h:m") }}</p>
+			{{ post.fechacreacion|date("d-m-Y h:m") }}</p>
 
 		<!-- Texto del post -->
 		<p>{{ post.texto }}
@@ -47,7 +47,7 @@
 		<div class="card post text-light elemento">
 			<div class="card-body">
 				<a href="{{path('perfil', {usuario: comentario.usuario.id})}}">
-					<h6 class="card-title text-light">{{ post.usuario.nombre }} dice:</h6>
+					<h6 class="card-title text-light">{{ comentario.usuario.nombre }} dice:</h6>
 				</a>
 				<p class="card-text mb-2">{{ comentario.texto }}</p>
 				{% if app.user is same as(comentario.usuario) %}

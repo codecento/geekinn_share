@@ -22,7 +22,7 @@ class UsuarioController extends Controller
     /**
      *  @Route("/perfil/{usuario}", name="perfil")
      */
-    public function perfilAction($usuario)
+    public function perfilAction(Request $request, $usuario)
     {
         $em = $this->getDoctrine()->getManager();
         $usuarioBBDD = $em->getRepository("AppBundle:Usuario")->findOneBy(array(
@@ -30,9 +30,31 @@ class UsuarioController extends Controller
         ));
         $posts = $em->getRepository("AppBundle:Post")->findBy(array("usuario" => $usuario));
 
+        $formulario = $this->createFormBuilder($usuarioBBDD)
+            ->add('password', PasswordType::class)
+            ->add('cambiar', SubmitType::class)
+            ->getForm();
+
+        $formulario->handleRequest($request);
+
+        if($formulario->isValid())
+        {
+            $encoder = $this->get('security.encoder_factory')->getEncoder($usuarioBBDD);
+            $passwordCodificado = $encoder->encodePassword($usuarioBBDD->getPassword(), null);
+            $usuarioBBDD->setPassword($passwordCodificado);
+            $em->persist($usuarioBBDD);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                'Se ha cambiado la contraseña.'
+            );
+        }
+        
+
         return $this->render('usuarios/perfil.html.twig', array(
             'usuario' => $usuarioBBDD,
-            'posts' => $posts
+            'posts' => $posts,
+            'formulario_contraseña' => $formulario->createView()
         ));
     }
 
@@ -63,7 +85,11 @@ class UsuarioController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($usuario);
             $em->flush();
-            return $this->redirectToRoute('inicio');
+            $this->addFlash(
+                'notice',
+                'Te has registrado correctamente. ¡Inicia sesión!'
+            );
+            return $this->redirectToRoute('usuario_login');
         }   
 
         return $this->render('usuarios/registro.html.twig', array('formulario' => $formulario->createView(),));
@@ -160,7 +186,7 @@ class UsuarioController extends Controller
      * Displays a form to edit an existing usuario entity.
      *
      * @Route("/usuariocrud/{id}/edit", name="usuariocrud_edit")
-     * @Method({"GET", "POST"})
+     * @Method({"GET", "POST", "DELETE"})
      */
     public function editAction(Request $request, Usuario $usuario)
     {
@@ -184,12 +210,11 @@ class UsuarioController extends Controller
     /**
      * Deletes a usuario entity.
      *
-     * @Route("/usuariocrud/{id}", name="usuariocrud_delete")
+     * @Route("/usuariocrud/delete/{id}", name="usuariocrud_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Usuario $usuario)
     {
-
         $form = $this->createDeleteForm($usuario);
         $form->handleRequest($request);
 
